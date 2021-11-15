@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const logger = require('../__helpers/logger');
-const configs = require('../__configs/configs');
+const logger = require('../helpers/logger');
+const configs = require('../configs/configs');
 
 const dbConnect = () => {
   const url = configs.isProduction ? configs.dbUrl.online : configs.dbUrl.offline;

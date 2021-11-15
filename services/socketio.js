@@ -1,5 +1,5 @@
 const socketio = require('socket.io');
-const logger = require('../__helpers/logger');
+const logger = require('../helpers/logger');
 
 exports.connect = (server) => {
   global.io = socketio(server, {

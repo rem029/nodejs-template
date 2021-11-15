@@ -1,11 +1,11 @@
 require('dotenv').config();
-const server = require('./__services/server');
-// const dbConnect = require('./__services/database');
+const server = require('./services/server');
+// const dbConnect = require('./services/database');
 
-const socketio = require('./__services/socketio');
+const socketio = require('./services/socketio');
 
-const configs = require('./__configs/configs');
-const logger = require('./__helpers/logger');
+const configs = require('./configs/configs');
+const logger = require('./helpers/logger');
 
 const port = configs.port;
 

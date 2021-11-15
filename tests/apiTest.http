@@ -1,0 +1,32 @@
+
+###
+GET http://localhost:6060/user/
+
+###
+POST http://localhost:6060/user/login
+
+###
+POST http://localhost:6060/user/logout
+
+###
+POST http://localhost:6060/user/signup
+
+
+###
+GET http://localhost:6060/data/
+
+###
+GET http://localhost:6060/data/123
+
+###
+DELETE http://localhost:6060/data/
+
+###
+DELETE http://localhost:6060/data/123
+
+###
+POST http://localhost:6060/data/
+
+###
+PUT http://localhost:6060/data/123
+

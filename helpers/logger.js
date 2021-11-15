@@ -11,7 +11,12 @@ if (!fs.existsSync(logDir)) {
 
 const colorizer = winston.format.colorize();
 const fileOptions = (type) => {
-  return { filename: path.join(`${logDir}/${type}.log`), level: type, maxsize: 5242880, maxFiles: 3 };
+  return {
+    filename: path.join(`${logDir}/${type}.log`),
+    level: type,
+    maxsize: 5242880,
+    maxFiles: 3,
+  };
 };
 
 const logger = winston.createLogger({
@@ -25,8 +30,6 @@ const logger = winston.createLogger({
       arrayBuffers = Math.floor(arrayBuffers / 1024 / 1024);
       rss = Math.floor(rss / 1024 / 1024);
       external = Math.floor(external / 1024 / 1024);
-
-      const mem = `${msg.level}\tHU:${heapUsed}MB HT:${heapTotal}MB AR:${arrayBuffers}MB RS:${rss}MB EX:${external}MB`;
 
       return colorizer.colorize(msg.level, `${now.get()}\t${msg.message}`);
     })
