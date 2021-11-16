@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const { verifyUserLogin } = require('../middlewares/verifyUser.js');
-const { login, logout, signup } = require('../controllers/controllerUser.js');
+const { authenticateToken } = require('../middlewares/authToken');
+const { authenticateCreateUser } = require('../middlewares/authUser');
+const { getInfo, getInfoById, createUser } = require('../controllers/controllerUser.js');
 
-router.get('/', (req, res) => {
+router.get('/', authenticateToken, (req, res) => {
   res.status(200).send('@GET USERS');
 });
+router.get('/info', authenticateToken, (req, res) => getInfo(req, res));
+router.get('/info/:id', authenticateToken, (req, res) => getInfoById(req, res));
 
-router.post('/login', verifyUserLogin, (req, res) => login(req, res));
-router.post('/logout', (req, res) => logout(req, res));
-router.post('/signup', (req, res) => signup(req, res));
+router.post('/create', authenticateCreateUser, (req, res) => createUser(req, res));
 
 module.exports = router;

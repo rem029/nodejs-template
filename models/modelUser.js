@@ -3,7 +3,13 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 const userSchemaInit = {};
 
-const userSchema = new mongoose.Schema(userSchemaInit, { strict: false });
+const userSchema = new mongoose.Schema(
+  {
+    email: { type: String, unique: true },
+    password: { type: String },
+  },
+  { strict: true }
+);
 
 userSchema.plugin(mongoosePaginate);
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const routeAuth = require('../routes/routeAuth');
 const routeUser = require('../routes/routeUser.js');
 const routeData = require('../routes/routeData.js');
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors(corsOptions));
 
+app.use('/auth', routeAuth);
 app.use('/user', routeUser);
 app.use('/data', routeData);
 

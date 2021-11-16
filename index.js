@@ -1,7 +1,6 @@
 require('dotenv').config();
-const server = require('./services/server');
 const dbConnect = require('./services/database');
-
+const server = require('./services/server');
 const socketio = require('./services/socketio');
 
 const configs = require('./configs/configs');

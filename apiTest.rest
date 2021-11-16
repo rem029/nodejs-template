@@ -3,20 +3,24 @@
 GET http://localhost:6060/user/
 
 ###
-POST http://localhost:6060/user/login
-Content-Type: application/json
+GET http://localhost:6060/user/info/
 
-{
-    "email": "email@email",
-    "password": "123"
-}
+###
+GET http://localhost:6060/auth/
+Authorization: Basic email46789@email:123
 
 ###
 POST http://localhost:6060/user/logout
 
 ###
-POST http://localhost:6060/user/signup
+POST http://localhost:6060/user/create
+Content-Type: application/json
 
+{
+    "email": "email46789@email",
+    "password": "123",
+    "info": {"value1":1,"value2":2}
+}
 
 ###
 GET http://localhost:6060/data/

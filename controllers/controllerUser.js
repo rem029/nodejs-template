@@ -1,19 +1,22 @@
-const { generateToken } = require('../middlewares/authToken');
+const { modelUsers } = require('../models/modelUser');
+const logger = require('../helpers/logger');
 
-const login = (req = new Request(), res = Response) => {
-  const { email } = req.body;
-  const user = { email: email };
-
-  const accessToken = generateToken(user);
-  res.status(200).json({ accessToken: accessToken });
+const createUser = async (req = new Request(), res = Response) => {
+  try {
+    let userCreateResponse = await modelUsers.create(req.body);
+    res.status(200).json(userCreateResponse);
+  } catch (errorCreate) {
+    logger.error(`error creating user ${errorCreate}`);
+    res.status(400).json(`${errorCreate}`);
+  }
 };
 
-const logout = (req = new Request(), res = Response) => {
-  res.status(200).send('from logout');
+const getInfo = async (req = new Request(), res = Response) => {
+  res.status(200).json('from user get Info');
 };
 
-const signup = (req = new Request(), res = Response) => {
-  res.status(200).send('from signup');
+const getInfoById = async (req = new Request(), res = Response) => {
+  res.status(200).json('from user get Info by id');
 };
 
-module.exports = { login, logout, signup };
+module.exports = { createUser, getInfo, getInfoById };
