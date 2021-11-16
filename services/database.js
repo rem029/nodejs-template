@@ -2,13 +2,15 @@ const mongoose = require('mongoose');
 const logger = require('../helpers/logger');
 const configs = require('../configs/configs');
 
-const dbConnect = () => {
-  const url = configs.isProduction ? configs.dbUrl.online : configs.dbUrl.offline;
+const dbConnect = (dbName = '') => {
+  const url = configs.isProduction
+    ? configs.dbUrl.online + dbName
+    : configs.dbUrl.offline + dbName;
 
   if (mongoose.connection.readyState == 0) {
     mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
     mongoose.set('useCreateIndex', true);
-    logger.info('Database connecting...');
+    logger.info(`Database connecting at url: ${url}`);
   }
 
   const dbConnection = mongoose.connection;

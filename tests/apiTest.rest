@@ -4,6 +4,12 @@ GET http://localhost:6060/user/
 
 ###
 POST http://localhost:6060/user/login
+Content-Type: application/json
+
+{
+    "email": "email@email",
+    "password": "123"
+}
 
 ###
 POST http://localhost:6060/user/logout

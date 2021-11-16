@@ -1,6 +1,6 @@
 require('dotenv').config();
 const server = require('./services/server');
-// const dbConnect = require('./services/database');
+const dbConnect = require('./services/database');
 
 const socketio = require('./services/socketio');
 
@@ -14,5 +14,5 @@ server.listen(port, () => {
   logger.info('Server running in mode: ' + process.env.NODE_ENV);
 });
 
-// dbConnect();
+dbConnect('db');
 socketio.connect(server);

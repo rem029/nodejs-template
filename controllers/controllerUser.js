@@ -1,12 +1,18 @@
-const login = (req = Request, res = Response) => {
-  res.status(200).send('from login');
+const { generateToken } = require('../middlewares/authToken');
+
+const login = (req = new Request(), res = Response) => {
+  const { email } = req.body;
+  const user = { email: email };
+
+  const accessToken = generateToken(user);
+  res.status(200).json({ accessToken: accessToken });
 };
 
-const logout = (req = Request, res = Response) => {
+const logout = (req = new Request(), res = Response) => {
   res.status(200).send('from logout');
 };
 
-const signup = (req = Request, res = Response) => {
+const signup = (req = new Request(), res = Response) => {
   res.status(200).send('from signup');
 };
 
