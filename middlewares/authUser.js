@@ -23,18 +23,16 @@ const passwordCompare = (password, passwordHashed) =>
   bcrypt.compare(password, passwordHashed);
 
 const authenticateLogin = async (req = new Request(), res = new Response(), next) => {
-  const userFromHeader =
-    req.headers['authorization'] && req.headers['authorization'].split(' ')[1];
+  const userFromHeader = req.headers['authorization'];
+  const user = req.headers['authorization'] && userFromHeader.split(' ')[1];
 
-  if (!userFromHeader) res.status(400).send('Authorization header is required.');
+  if (!user) res.status(400).send('Credentials are required');
 
-  const user = Buffer.from(userFromHeader, 'base64').toString().split(':');
-  const email = user[0];
-  const password = user[1];
+  const userDecoded = Buffer.from(user, 'base64').toString().split(':');
+  const email = userDecoded[0];
+  const password = userDecoded[1];
 
-  logger.info(
-    `from middleware verifyBodyUserLogin. email: ${email}, password ${password}`
-  );
+  logger.info(`from middleware verifyBodyUserLogin. email: ${email}`);
   req.user = { email: email, password: password };
   next();
 };

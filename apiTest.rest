@@ -1,13 +1,22 @@
-
+@token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNkZGUwY2U0ZjIwZDU4ODQ2ZTdmNiIsImVtYWlsIjoibmV3TWFpbFdpdGhJbmZvUmVmcmVzaFVwZGF0ZS5jb20iLCJpYXQiOjE2MzcwODA4ODcsImV4cCI6MTYzNzA4MDkwMn0.NDxabBvNBA3CAf3aI6H5ZVOQjiJSTE-k48afkYhckP4
+@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNkZGUwY2U0ZjIwZDU4ODQ2ZTdmNiIsImVtYWlsIjoibmV3TWFpbFdpdGhJbmZvUmVmcmVzaFVwZGF0ZS5jb20iLCJpYXQiOjE2MzcwODA4ODd9.XbQqSFATwaxJw01GXp_W7boKbX30UNQxnpwECTP8d38
 ###
 GET http://localhost:6060/user/
 
 ###
 GET http://localhost:6060/user/info/
+Authorization: Token {{token}}
 
 ###
 GET http://localhost:6060/auth/
-Authorization: Basic email46789@email:123
+Authorization: Basic newMailWithInfoRefreshUpdate.com:@hashedPassword
+###
+POST http://localhost:6060/auth/token
+Content-Type: application/json
+
+{
+    "token": "{{refreshToken}}"
+}
 
 ###
 POST http://localhost:6060/user/logout
@@ -17,26 +26,24 @@ POST http://localhost:6060/user/create
 Content-Type: application/json
 
 {
-    "email": "email46789@email",
-    "password": "123",
+    "email": "newMailWithInfoRefreshUpdate.com",
+    "password": "@hashedPassword",
     "info": {"value1":1,"value2":2}
 }
 
+// DATA
+
 ###
 GET http://localhost:6060/data/
-
-###
-GET http://localhost:6060/data/123
-
-###
-DELETE http://localhost:6060/data/
-
-###
-DELETE http://localhost:6060/data/123
+Authorization: Token {{token}}
 
 ###
 POST http://localhost:6060/data/
+Authorization: Token {{token}}
+Content-Type: application/json
 
-###
-PUT http://localhost:6060/data/123
+{
+    "newData": "Testing new Data",
+    "newData2": "Testing new Data2"
+}
 

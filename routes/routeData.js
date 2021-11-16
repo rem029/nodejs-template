@@ -1,22 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const {
-  dataGetAll,
-  dataGetById,
-  dataAdd,
-  dataUpdateById,
-  dataDeleteAll,
-  dataDeleteById,
-} = require('../controllers/controllerData.js');
+const { authenticateToken } = require('../middlewares/authToken');
 
-router.get('/', (req, res) => dataGetAll(req, res));
-router.get('/:id', (req, res) => dataGetById(req, res));
+const { dataGetAll, dataAdd } = require('../controllers/controllerData.js');
 
-router.delete('/', (req, res) => dataDeleteAll(req, res));
-router.delete('/:id', (req, res) => dataDeleteById(req, res));
-
-router.post('/', (req, res) => dataAdd(req, res));
-router.put('/:id', (req, res) => dataUpdateById(req, res));
+router.get('/', authenticateToken, (req, res) => dataGetAll(req, res));
+router.post('/', authenticateToken, (req, res) => dataAdd(req, res));
 
 module.exports = router;
