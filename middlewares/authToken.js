@@ -2,9 +2,9 @@ const jwt = require('jsonwebtoken');
 const logger = require('../helpers/logger.js');
 
 const generateAccessToken = (payload) =>
-  jwt.sign(payload, process.env.API_TOKEN_SECRET, { expiresIn: '15s' });
+  jwt.sign(payload, process.env.API_TOKEN_SECRET, { expiresIn: '15m' });
 const generateRefreshToken = (payload) =>
-  jwt.sign(payload, process.env.API_TOKEN_REFRESH);
+  jwt.sign(payload, process.env.API_TOKEN_REFRESH, { expiresIn: '1yr' });
 
 const decodeToken = (token) => jwt.verify(token, process.env.API_TOKEN_SECRET);
 
@@ -18,7 +18,8 @@ const authenticateToken = (req = new Request(), res = Response, next) => {
     const decodedUser = decodeToken(token);
     req.user = decodedUser;
   } catch (error) {
-    return res.status(401).json('Invalid token');
+    logger.error(`authenticating token error: ${JSON.stringify(error)}`);
+    return res.status(401).json('Token has expired or invalid.');
   }
   next();
 };

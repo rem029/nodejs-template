@@ -1,8 +1,10 @@
-@token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNkZGUwY2U0ZjIwZDU4ODQ2ZTdmNiIsImVtYWlsIjoibmV3TWFpbFdpdGhJbmZvUmVmcmVzaFVwZGF0ZS5jb20iLCJpYXQiOjE2MzcwODA4ODcsImV4cCI6MTYzNzA4MDkwMn0.NDxabBvNBA3CAf3aI6H5ZVOQjiJSTE-k48afkYhckP4
-@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNkZGUwY2U0ZjIwZDU4ODQ2ZTdmNiIsImVtYWlsIjoibmV3TWFpbFdpdGhJbmZvUmVmcmVzaFVwZGF0ZS5jb20iLCJpYXQiOjE2MzcwODA4ODd9.XbQqSFATwaxJw01GXp_W7boKbX30UNQxnpwECTP8d38
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRhNDNiNTMxY2JkMmRmYzgwNTczZCIsImVtYWlsIjoibmV3TWFpbFdpdGhJbmZvUmVmcmVzaFVwZGF0ZS5jb20iLCJpYXQiOjE2MzcxMzMyNTUsImV4cCI6MTYzNzEzNDE1NX0.0kptl9NtnRlpelWkE5rs8zrXCfVdUaZEqnbTmTG-MW0
+@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRhNDNiNTMxY2JkMmRmYzgwNTczZCIsImVtYWlsIjoibmV3TWFpbFdpdGhJbmZvUmVmcmVzaFVwZGF0ZS5jb20iLCJpYXQiOjE2MzcxMzMyNTUsImV4cCI6MTY2ODY5MDg1NX0.6r09evjksZy_DlebXJRyCg6zXG-3aFgWqDgJJ27DJAA
+
+
 ###
 GET http://localhost:6060/user/
-
+Authorization: Token {{token}}
 ###
 GET http://localhost:6060/user/info/
 Authorization: Token {{token}}
@@ -11,7 +13,15 @@ Authorization: Token {{token}}
 GET http://localhost:6060/auth/
 Authorization: Basic newMailWithInfoRefreshUpdate.com:@hashedPassword
 ###
-POST http://localhost:6060/auth/token
+POST http://localhost:6060/auth/refresh
+Content-Type: application/json
+
+{
+    "token": "{{refreshToken}}"
+}
+
+###
+POST http://localhost:6060/auth/logout
 Content-Type: application/json
 
 {
