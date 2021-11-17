@@ -32,6 +32,7 @@ const getInfo = async (req = new Request(), res = Response) => {
   const serverResponse = { email: userFindResponse.email, info: userFindResponse.info };
   res.status(200).json(serverResponse);
 };
+``;
 
 const getInfoById = async (req = new Request(), res = Response) => {
   res.status(200).json('from user get Info by id');
