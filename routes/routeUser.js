@@ -8,9 +8,9 @@ const { getInfo, getInfoById, createUser } = require('../controllers/controllerU
 router.get('/', authenticateToken, (req, res) => {
   res.status(200).send('@GET USERS');
 });
-router.get('/info', authenticateToken, (req, res) => getInfo(req, res));
-router.get('/info/:id', authenticateToken, (req, res) => getInfoById(req, res));
+router.get('/info', authenticateToken, getInfo);
+router.get('/info/:id', authenticateToken, getInfoById);
 
-router.post('/create', authenticateCreateUser, (req, res) => createUser(req, res));
+router.post('/create', authenticateCreateUser, createUser);
 
 module.exports = router;

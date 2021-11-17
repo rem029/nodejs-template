@@ -1,5 +1,5 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRhNDNiNTMxY2JkMmRmYzgwNTczZCIsImVtYWlsIjoibmV3TWFpbFdpdGhJbmZvUmVmcmVzaFVwZGF0ZS5jb20iLCJpYXQiOjE2MzcxMzMyNTUsImV4cCI6MTYzNzEzNDE1NX0.0kptl9NtnRlpelWkE5rs8zrXCfVdUaZEqnbTmTG-MW0
-@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRhNDNiNTMxY2JkMmRmYzgwNTczZCIsImVtYWlsIjoibmV3TWFpbFdpdGhJbmZvUmVmcmVzaFVwZGF0ZS5jb20iLCJpYXQiOjE2MzcxMzMyNTUsImV4cCI6MTY2ODY5MDg1NX0.6r09evjksZy_DlebXJRyCg6zXG-3aFgWqDgJJ27DJAA
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRlOGJiZGY5NWEwMDY5NDgwNjdiNSIsImVtYWlsIjoibmV3TWFpbFdpdGhJbmZvUmVmcmVzaFVwZGF0ZS5jb20iLCJpYXQiOjE2MzcxNTk3MjIsImV4cCI6MTYzNzE2MDYyMn0.VCBDrYC_3pvoO6o4DNJe_AvZlTYYiXllV4dvQekuh3A
+@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRlOGJiZGY5NWEwMDY5NDgwNjdiNSIsImVtYWlsIjoibmV3TWFpbFdpdGhJbmZvUmVmcmVzaFVwZGF0ZS5jb20iLCJpYXQiOjE2MzcxNTg1MDcsImV4cCI6MTY2ODcxNjEwN30.8us4xeJDevK685QLOBbVkd3oQJNp7SWoyqldqTL5IcM
 
 
 ###
@@ -47,13 +47,50 @@ Content-Type: application/json
 GET http://localhost:6060/data/
 Authorization: Token {{token}}
 
-###
+### ADD SINGLE
 POST http://localhost:6060/data/
 Authorization: Token {{token}}
 Content-Type: application/json
 
 {
-    "newData": "Testing new Data",
-    "newData2": "Testing new Data2"
+    "data": {
+        "newData": "Testing new Data",
+        "newData2": "Testing new Data2"
+    }
 }
+
+### ADD SINGLE 1
+POST http://localhost:6060/data/
+Authorization: Token {{token}}
+Content-Type: application/json
+
+{
+    "data": {
+        "newData": "Arr2",
+        "newData2": "Arr223"
+    }
+}
+
+### ADD UPDATE
+PUT http://localhost:6060/data/
+Authorization: Token {{token}}
+Content-Type: application/json
+
+{
+    "id": "619515c4e635fd52089eb33e",
+    "data": {
+        "newData": "Update1",
+        "newData2": "Update2"
+    }
+}
+
+### DELETE
+DELETE http://localhost:6060/data/
+Authorization: Token {{token}}
+Content-Type: application/json
+
+{
+    "id": "61950fddcd4fb70a1cad5a2f"
+}
+
 

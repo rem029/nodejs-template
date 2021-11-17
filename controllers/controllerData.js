@@ -1,70 +1,69 @@
 const logger = require('../helpers/logger');
-const { generateAccessToken } = require('../middlewares/authToken');
 const { modelDatas } = require('../models//modelData');
 
 const actions = {
   get: 'get',
-  update: 'update',
+  updateById: 'updateById',
   add: 'add',
-  delete: 'delete',
+  deleteById: 'deleteById',
 };
 
-const dbBasicActions = async (action = '', id = '', data = {}) => {
+const dbActions = async (res = Response, options = { action: '', id: '', data: {} }) => {
+  const { id, data, action } = options;
   let response;
+
+  logger.info(`@${action} data`);
+
   try {
     switch (action) {
       case actions.get:
-        logger.info(`@getting data`);
         response = await modelDatas.find({});
         break;
 
       case actions.add:
-        logger.info(`@adding data ${req.body}`);
-        response = await modelDatas.insertMany(req.body);
+        response = await modelDatas.insertMany(data);
         break;
 
-      case actions.update:
-        logger.info(`@update data ${req.body}`);
-        response = await modelDatas.updateOne({ _id: id }, data);
+      case actions.updateById:
+        await modelDatas.updateOne({ _id: id }, data);
+        response = await modelDatas.find({ _id: id });
+        break;
+
+      case actions.deleteById:
+        await modelDatas.deleteOne({ _id: id });
+        response = await modelDatas.find({ _id: id });
         break;
 
       default:
         throw new Error('invalid db action.');
     }
-  } catch (error) {
-    throw new Error(error);
-  }
-  return response;
-};
 
-const dataGetAll = async (req = new Request(), res = Response) => {
-  try {
-    const dataResponse = await dbBasicActions(actions.get);
-    res.status(200).json(dataResponse);
+    res.status(200).json(response);
   } catch (error) {
     logger.error(`error getting data ${error}`);
     res.status(400).json(error);
   }
+  return response;
 };
 
-const dataAdd = async (req = new Request(), res = Response) => {
-  try {
-    const dataResponse = await dbBasicActions(actions.get);
-    res.status(200).json(dataResponse);
-  } catch (error) {
-    logger.error(`error adding data ${error}`);
-    res.status(400).json(error);
-  }
+const dataGetAll = (req = new Request(), res = Response) => {
+  const option = { action: actions.get };
+  dbActions(res, option);
 };
 
-const dataUpdateById = async (req = new Request(), res = Response) => {
-  try {
-    const dataResponse = await dbBasicActions(actions.update, req.params.id, {});
-    res.status(200).json(dataResponse);
-  } catch (error) {
-    logger.error(`error update data ${error}`);
-    res.status(400).json(error);
-  }
+const dataAdd = (req = new Request(), res = Response) => {
+  const option = { action: actions.add, data: req.body.data };
+  dbActions(res, option);
 };
 
-module.exports = { dataGetAll, dataAdd };
+const dataUpdateById = (req = new Request(), res = Response) => {
+  const option = { action: actions.updateById, id: req.body.id, data: req.body.data };
+  dbActions(res, option);
+};
+
+const deleteById = (req = new Request(), res = Response) => {
+  const option = { action: actions.deleteById, id: req.body.id };
+  dbActions(res, option);
+};
+
+module.exports = { dataGetAll, dataAdd, dataUpdateById, deleteById };

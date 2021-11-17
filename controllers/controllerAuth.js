@@ -42,13 +42,18 @@ const refreshToken = async (req = new Request(), res = Response) => {
     const refreshToken = req.body.token;
     if (!refreshToken) return res.status(401).json('Token not found');
 
-    const userFindResponse = await modelUsers.findOne({ refreshToken: refreshToken });
+    const userFindResponse = await modelUsers.findOne({
+      'refreshToken.token': refreshToken,
+    });
     if (!userFindResponse) return res.status(401).json('Token not found');
 
+    const userFound = { id: userFindResponse._id, email: userFindResponse.email };
+    const accessToken = generateAccessToken(userFound);
+
     const serverResponse = {
-      id: userFindResponse._id,
-      email: userFindResponse.email,
-      refreshToken: userFindResponse.refreshToken,
+      id: userFound._id,
+      email: userFound.email,
+      accessToken: accessToken,
     };
 
     res.status(200).json(serverResponse);
@@ -64,7 +69,7 @@ const destroyToken = async (req = new Request(), res = Response) => {
     if (!refreshToken) return res.status(401).json('Token not found');
 
     const updateResponse = await modelUsers.updateOne(
-      { refreshToken: refreshToken },
+      { 'refreshToken.token': refreshToken },
       { refreshToken: '' }
     );
     if (!updateResponse) return res.status(401).json('Token not found');

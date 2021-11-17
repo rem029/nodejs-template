@@ -3,9 +3,16 @@ const router = express.Router();
 
 const { authenticateToken } = require('../middlewares/authToken');
 
-const { dataGetAll, dataAdd } = require('../controllers/controllerData.js');
+const {
+  dataGetAll,
+  dataAdd,
+  dataUpdateById,
+  deleteById,
+} = require('../controllers/controllerData.js');
 
-router.get('/', authenticateToken, (req, res) => dataGetAll(req, res));
-router.post('/', authenticateToken, (req, res) => dataAdd(req, res));
+router.get('/', authenticateToken, dataGetAll);
+router.post('/', authenticateToken, dataAdd);
+router.put('/', authenticateToken, dataUpdateById);
+router.delete('/', authenticateToken, deleteById);
 
 module.exports = router;
