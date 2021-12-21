@@ -1,8 +1,11 @@
-const { modelUsers } = require('../models/modelUser');
-const logger = require('../helpers/logger');
+const { modelUsers } = require('../../users/models/');
+const logger = require('../../../helpers/logger');
 
-const { generateAccessToken, generateRefreshToken } = require('../middlewares/authToken');
-const { passwordCompare } = require('../middlewares/authUser');
+const {
+  generateAccessToken,
+  generateRefreshToken,
+} = require('../../../middlewares/authToken');
+const { passwordCompare } = require('../../../middlewares/authUser');
 
 const auth = async (req = new Request(), res = Response) => {
   try {

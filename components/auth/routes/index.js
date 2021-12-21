@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const { authenticateLogin } = require('../middlewares/authUser.js');
+const { authenticateLogin } = require('../../../middlewares/authUser');
 
-const { auth, refreshToken, destroyToken } = require('../controllers/controllerAuth.js');
+const { auth, refreshToken, destroyToken } = require('../controllers/');
 
 router.get('/', authenticateLogin, (req, res) => auth(req, res));
 router.post('/refresh', (req, res) => refreshToken(req, res));

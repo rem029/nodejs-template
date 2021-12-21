@@ -1,22 +1,22 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const routeAuth = require('../routes/routeAuth');
-const routeUser = require('../routes/routeUser.js');
-const routeData = require('../routes/routeData.js');
+const auth = require('../components/auth/routes/');
+const user = require('../components/users/routes/');
+const data = require('../components/datas/routes/');
 
 var corsOptions = {
   origin: '*',
-  optionsSuccessStatus: 200, // For legacy browser support
+  optionsSuccessStatus: 200,
 };
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors(corsOptions));
 
-app.use('/auth', routeAuth);
-app.use('/user', routeUser);
-app.use('/data', routeData);
+app.use('/auth', auth);
+app.use('/user', user);
+app.use('/data', data);
 
 //Default routes
 app.get('/', async (req, res) => {

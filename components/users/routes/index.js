@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const { authenticateToken } = require('../middlewares/authToken');
-const { authenticateCreateUser } = require('../middlewares/authUser');
-const { getInfo, getInfoById, createUser } = require('../controllers/controllerUser.js');
+const { authenticateToken } = require('../../../middlewares/authToken');
+const { authenticateCreateUser } = require('../../../middlewares/authUser');
+const { getInfo, getInfoById, createUser } = require('../controllers/');
 
 router.get('/', authenticateToken, (req, res) => {
   res.status(200).send('@GET USERS');

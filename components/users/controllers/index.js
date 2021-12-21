@@ -1,7 +1,10 @@
-const { modelUsers } = require('../models/modelUser');
-const logger = require('../helpers/logger');
+const { modelUsers } = require('../models');
+const logger = require('../../../helpers/logger');
 
-const { generateAccessToken, generateRefreshToken } = require('../middlewares/authToken');
+const {
+  generateAccessToken,
+  generateRefreshToken,
+} = require('../../../middlewares/authToken');
 
 const createUser = async (req = new Request(), res = Response) => {
   try {

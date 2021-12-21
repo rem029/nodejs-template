@@ -1,7 +1,7 @@
 const logger = require('../helpers/logger.js');
 const bcrypt = require('bcrypt');
 
-const verifyBodySignUp = (reqBody) => {
+const verifyBodyCreateUser = (reqBody) => {
   let verifyStatus = { isAccepted: false, message: '' };
 
   const hasEmail = reqBody.email && reqBody.email;
@@ -42,11 +42,11 @@ const authenticateCreateUser = async (
   res = new Response(),
   next
 ) => {
-  logger.info(`from middleware verifyUserSignup ${JSON.stringify(req.body)}`);
-  const verifyBodyResponse = verifyBodySignUp(req.body);
+  logger.info(`from middleware verifyCreateUser ${JSON.stringify(req.body)}`);
+  const verifyBodyCreateUserResponse = verifyBodyCreateUser(req.body);
 
-  if (!verifyBodyResponse.isAccepted)
-    return res.status(400).send(verifyBodyResponse.message);
+  if (!verifyBodyCreateUserResponse.isAccepted)
+    return res.status(400).send(verifyBodyCreateUserResponse.message);
 
   req.body.password = await passwordEncrypt(req.body.password);
   next();
